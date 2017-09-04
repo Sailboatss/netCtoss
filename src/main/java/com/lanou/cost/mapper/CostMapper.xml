@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.cost.mapper.CostMapper">
+
+    <resultMap id="costMap" type="Cost">
+      <id column="cost_id" property="id"/>
+      <result column="name" property="name"/>
+      <result column="base_duration" property="duration"/>
+      <result column="base_cost" property="baseCost"/>
+      <result column="unit_cost" property="unitCost"/>
+      <result column="status" property="status"/>
+      <result column="descr" property="descr"/>
+      <result column="creatime" property="creaTime"/>
+      <result column="startime" property="starTime"/>
+      <result column="cost_type" property="costType"/>
+    </resultMap>
+
+
+
+    <select id="findAll" resultMap="costMap">
+        SELECT * FROM cost
+    </select>
+
+    <select id="findById" resultMap="costMap" parameterType="integer">
+        SELECT * FROM cost WHERE cost_id = #{id}
+    </select>
+
+    <update id="updateCost" parameterType="Cost">
+       UPDATE cost SET name = #{name},base_duration = #{duration},base_cost = #{baseCost},unit_cost = #{unitCost},descr = #{descr} WHERE cost_id = #{id}
+    </update>
+
+    <delete id="deleteId" parameterType="integer">
+     DELETE FROM cost WHERE cost_id = #{id}
+    </delete>
+
+    <insert id="insertCost" parameterType="Cost">
+        INSERT INTO cost VALUES (NULL,#{name},#{duration},#{baseCost},#{unitCost},#{status},#{descr},#{creaTime},null,null)
+    </insert>
+
+    <update id="enable" parameterType="Cost">
+         UPDATE cost SET status = #{status},startime = #{starTime}  WHERE cost_id = #{id}
+    </update>
+
+</mapper>
